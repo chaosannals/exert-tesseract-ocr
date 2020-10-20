@@ -4,11 +4,14 @@ from PIL import Image, ImageFont, ImageDraw
 
 class Captcha:
     '''
+    验证码。
     '''
 
     def __init__(self, font_size=50):
         '''
+        初始化。
         '''
+
         self.font_size = font_size
         self.font = ImageFont.truetype(
             font='assets/source-han-serif-cn-bold.ttf',
@@ -17,6 +20,7 @@ class Captcha:
 
     def make(self, text):
         '''
+        绘制成图。
         '''
 
         length = len(text)
@@ -34,12 +38,17 @@ class Captcha:
         return image
 
     def save(self, text, path):
+        '''
+        生成并保存。
+        '''
+
         with open(path, 'wb') as writer:
             image = self.make(text)
             image.save(writer)
 
     def draw(self, code):
         '''
+        绘制字符。
         '''
 
         size = (self.font_size * 2, self.font_size * 2)
@@ -50,5 +59,7 @@ class Captcha:
         angle = random.randint(-50, 50)
         return image.rotate(angle, expand=1, resample=Image.BILINEAR)
 
-captcha = Captcha()
-captcha.save('12fg34', 'a.png')
+
+if __name__ == '__main__':
+    captcha = Captcha()
+    captcha.save('12fg34', 'a.png')

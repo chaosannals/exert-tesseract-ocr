@@ -57,21 +57,22 @@ def denoise(image):
             # 如果黑色点小于 4 为噪点。
             if len(pixel_set) <= 4:
                 noise_position.append((i, j))
-    
+
     # 噪点设为黑色
     for position in noise_position:
         image.putpixel(position, 1)
     return image
+
 
 def discern(image):
     '''
     识别。
     '''
 
-    imgry = image.convert('L') # 转为灰度图
+    imgry = image.convert('L')  # 转为灰度图
     max_pixel = get_max_pixel(imgry)
     bin_map = get_bin_map(max_pixel)
-    target = imgry.point(bin_map, '1') # 二值化
+    target = imgry.point(bin_map, '1')  # 二值化
 
     target = denoise(target)
 
@@ -79,12 +80,16 @@ def discern(image):
 
     return text
 
+
 def main():
     '''
     识别
     '''
+    
     image = Image.open('assets/test.png')
     text = discern(image)
     print(text)
 
-main()
+
+if __name__ == '__main__':
+    main()
